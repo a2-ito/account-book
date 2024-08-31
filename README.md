@@ -1,4 +1,39 @@
+# account-book
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## Todo
+
+- [x] Vercel データベース作成＆紐づけ
+- [x] カテゴリマスタ登録(seed)
+- [x] ローカルで1件DBへ登録
+- [x] Google ログイン機能（ローカル）
+- [x] ログイン後に機能が利用ができる
+- [x] グループ機能：デフォルトグループに紐づくデータが表示される
+- [x] APIの保護
+- [x] ログアウトボタン追加
+- [x] postgreSQL への接続
+- [ ] CI/CD運用
+- [ ] front: 入力項目チェック
+- [ ] Google ログイン機能（Vercel）
+- [ ] 利用日付入力（過去の記録も入力可能になる）data_of_use
+- [ ] 特定のID以外が利用した場合、共通エラーページに遷移する
+- [ ] カテゴリ作成
+- [ ] カテゴリ編集
+- [ ] カテゴリ削除
+- [ ] コネクションプール
+- [ ] 明細降順表示
+- [ ] 明細編集
+- [ ] カテゴリ表示関数の Map 化
+- [ ] 論理削除
+- [ ] グラフ表示
+- [ ] 合計金額表示
+
+## Migrating & Seeding
+
+```bash
+npx prisma migrate dev --name local
+```
 
 ## Getting Started
 
@@ -15,22 +50,3 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

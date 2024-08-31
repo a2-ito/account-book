@@ -1,0 +1,20 @@
+version: "3.3"
+networks:
+  container-link:
+    name: docker.internal
+services:
+  db:
+    image: postgres:16
+    container_name: postgres
+    ports:
+      - 5432:5432
+    networks:
+      - container-link
+    volumes:
+      - db-vol:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: passw0rd
+      POSTGRES_USER: accountbook-user
+      POSTGRES_DB: accountbook-local
+volumes:
+  db-vol:
