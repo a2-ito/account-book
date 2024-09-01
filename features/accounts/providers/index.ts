@@ -50,6 +50,6 @@ export namespace AccountRepository {
 
     // return data.account
     const json = await res.json()
-    return json.accounts
+    return json.account
   }
 }

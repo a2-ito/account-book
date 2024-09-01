@@ -3,6 +3,7 @@ export interface IAccountRequestModel {
   typeId: number
   categoryId: number
   memo?: string
+  dateOfUse: Date
 }
 
 export interface ICategoryResponseModel {
@@ -16,7 +17,7 @@ export interface IAccountResponseModel {
   typeId: number
   categoryId: number
   memo?: string
-  dateOfUse: string
+  dateOfUse: Date
   createdAt: string
   updatedAt: string
 }

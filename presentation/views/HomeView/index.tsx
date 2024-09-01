@@ -4,6 +4,7 @@ import { AccountRepository } from "@/features/accounts/providers";
 import { ICategoryResponseModel, IAccountRequestModel, IAccountResponseModel } from '@/features/accounts/models';
 import dayjs from "dayjs";
 import { signOut } from 'next-auth/react';
+import InputDateTime from '@/presentation/templates/InputDateTime';
 
 export default function HomeView() {
   const [amount, setAmount] = useState('')
@@ -14,6 +15,7 @@ export default function HomeView() {
   const [categories, setCategories] = useState<ICategoryResponseModel[]>([])
   const [accounts, setAccounts] = useState<IAccountResponseModel[]>([])
   // const [categoryMap, setCategoryMap] = useState(new Map())
+  const [dateOfUse, setDateOfUse] = useState<Date>(new Date());
 
   useEffect(() => {
     async function initialize() {
@@ -43,6 +45,10 @@ export default function HomeView() {
     setMemo(e.target.value);
   }
 
+  const changeDateOfUse = (date: Date | null) => {
+    setDateOfUse(date!);
+  }
+
   const clickSubmit = useCallback(
     async () => {
       const req: IAccountRequestModel = {
@@ -50,11 +56,26 @@ export default function HomeView() {
         typeId: Number(typeId),
         amount: Number(amount),
         memo: memo,
+        dateOfUse: dateOfUse,
       }
       console.log(req)
       const newAccount = await AccountRepository.postAccount(req)
       setAccounts([...accounts, newAccount])
-    }, [categoryId, typeId, amount, memo, accounts])
+      console.log(newAccount)
+
+      // const newAccountObject: IAccountResponseModel = {
+      //   categoryId: Number(categoryId),
+      //   typeId: Number(typeId),
+      //   amount: Number(amount),
+      //   memo: memo,
+      //   dateOfUse: dateOfUse,
+      // }
+      // setAccounts([...accounts, newAccountObject])
+      const res2 = await AccountRepository.getAccounts()
+      setAccounts(res2)
+
+      console.log(accounts)
+    }, [categoryId, typeId, amount, memo, dateOfUse])
 
   function getCategoryName(id: number)  {
     const c = categories.find((v) => v.id === id)
@@ -151,6 +172,26 @@ export default function HomeView() {
               className="block text-black font-bold md:text-right mb-1 md:mb-0 pr-4"
               htmlFor="inline-first-name"
             >
+              利用日付
+              <text className="text-white bg-slate-300 font-normal text-sm ml-2 p-0.5 rounded-md">
+                任意
+              </text>
+            </label>
+          </div>
+          <div className="md:w-2/3">
+            <InputDateTime
+              selectedDate={dateOfUse}
+              onChange={changeDateOfUse}
+            />
+          </div>
+        </div>
+
+        <div className="md:flex md:items-center mb-6">
+          <div className="md:w-1/3">
+            <label
+              className="block text-black font-bold md:text-right mb-1 md:mb-0 pr-4"
+              htmlFor="inline-first-name"
+            >
               メモ
               <text className="text-white bg-slate-300 font-normal text-sm ml-2 p-0.5 rounded-md">
                 任意
@@ -179,19 +220,15 @@ export default function HomeView() {
           <table className="table-auto">
             <thead>
                 <tr className="bg-gray-200">
-                  <th>ID</th>
+                  <th>利用日</th>
                   <th>費用</th>
                   <th>支出/収入</th>
                   <th>分類</th>
-                  <th>利用日</th>
                 </tr>
                 {accounts.map((item, index) => (
                   <tr key={index}>
-                    <td className="px-4 py-2 sticky left-0 z-[2] bg-slate-100 border ">
-                      {item.id}
-                    </td>
                     <td className="px-4 py-2 border">
-                      {item.amount}
+                      {dayjs(item.dateOfUse).format("YYYY/MM/DD")}
                     </td>
                     <td className="px-4 py-2 border">
                       {item.typeId === 1 ? '収入' : '支出'}
@@ -200,7 +237,7 @@ export default function HomeView() {
                       {getCategoryName(item.categoryId)}
                     </td>
                     <td className="px-4 py-2 border">
-                      {dayjs(item.dateOfUse).format("YYYY/MM/DD")}
+                      {item.amount}
                     </td>
                   </tr>
                 ))}

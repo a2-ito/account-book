@@ -13,10 +13,10 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [x] APIの保護
 - [x] ログアウトボタン追加
 - [x] postgreSQL への接続
-- [ ] CI/CD運用
+- [x] CI/CD運用
+- [ ] 利用日付入力（過去の記録も入力可能になる）data_of_use
 - [ ] front: 入力項目チェック
 - [ ] Google ログイン機能（Vercel）
-- [ ] 利用日付入力（過去の記録も入力可能になる）data_of_use
 - [ ] 特定のID以外が利用した場合、共通エラーページに遷移する
 - [ ] カテゴリ作成
 - [ ] カテゴリ編集
@@ -28,6 +28,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [ ] 論理削除
 - [ ] グラフ表示
 - [ ] 合計金額表示
+- [ ] issue: get しなくても一覧が更新される
 
 ## Migrating & Seeding
 
