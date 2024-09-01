@@ -77,9 +77,18 @@ export default function HomeView() {
       console.log(accounts)
     }, [categoryId, typeId, amount, memo, dateOfUse])
 
-  function getCategoryName(id: number)  {
+  function getCategoryName(id: number) {
     const c = categories.find((v) => v.id === id)
     return c?.name || '未分類'
+  }
+
+  function getPreMonthAccounts(accounts: IAccountResponseModel[]) {
+    const dt = new Date()
+    const preMonth = new Date(dt.getFullYear(), dt.getMonth() - 1, 1)
+
+    const p = accounts.filter((v) => dayjs(v.dateOfUse).format("YYYY/MM") == dayjs(preMonth).format("YYYY/MM")).reduce((acc, cur) => acc + cur.amount, 0)
+    console.log(preMonth, p)
+    return accounts.filter((v) => dayjs(v.dateOfUse).format("YYYY/MM") == dayjs(preMonth).format("YYYY/MM")).reduce((acc, cur) => acc + cur.amount, 0)
   }
 
   return (
@@ -216,7 +225,41 @@ export default function HomeView() {
           </button>
         </div>
 
-        <div className="whitespace-nowrap overflow-auto h-[500px] w-[50%] mt-[100px] top-0">
+        <div className="md:flex md:items-center mb-6">
+          <div className="md:w-1/3">
+            <label
+              className="block text-black font-bold md:text-right mb-1 md:mb-0 pr-4"
+              htmlFor="inline-first-name"
+            >
+             今月の支出
+            </label>
+          </div>
+          <div className="md:w-2/3">
+            <text
+            >
+              {accounts.filter((v) => dayjs(v.dateOfUse).format("YYYY/MM") == dayjs(Date.now()).format("YYYY/MM")).reduce((acc, cur) => acc + cur.amount, 0).toLocaleString()} 円
+            </text>
+          </div>
+        </div>
+
+        <div className="md:flex md:items-center mb-6">
+          <div className="md:w-1/3">
+            <label
+              className="block text-black font-bold md:text-right mb-1 md:mb-0 pr-4"
+              htmlFor="inline-first-name"
+            >
+              先月の支出
+            </label>
+          </div>
+          <div className="md:w-2/3">
+            <text
+            >
+              {getPreMonthAccounts(accounts).toLocaleString()} 円
+            </text>
+          </div>
+        </div>
+
+        <div className="whitespace-nowrap overflow-auto h-[500px] w-[100%] mt-[100px] top-0">
           <table className="table-auto">
             <thead>
                 <tr className="bg-gray-200">
@@ -237,7 +280,7 @@ export default function HomeView() {
                       {getCategoryName(item.categoryId)}
                     </td>
                     <td className="px-4 py-2 border">
-                      {item.amount}
+                      {item.amount.toLocaleString()}
                     </td>
                   </tr>
                 ))}
