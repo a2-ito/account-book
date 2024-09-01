@@ -221,9 +221,9 @@ export default function HomeView() {
             <thead>
                 <tr className="bg-gray-200">
                   <th>利用日</th>
-                  <th>費用</th>
                   <th>支出/収入</th>
                   <th>分類</th>
+                  <th>費用</th>
                 </tr>
                 {accounts.map((item, index) => (
                   <tr key={index}>

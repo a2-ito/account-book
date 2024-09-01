@@ -14,7 +14,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [x] ログアウトボタン追加
 - [x] postgreSQL への接続
 - [x] CI/CD運用
-- [ ] 利用日付入力（過去の記録も入力可能になる）data_of_use
+- [x] 利用日付入力（過去の記録も入力可能になる）data_of_use
 - [ ] front: 入力項目チェック
 - [ ] Google ログイン機能（Vercel）
 - [ ] 特定のID以外が利用した場合、共通エラーページに遷移する
