@@ -49,8 +49,20 @@ export default function HomeView() {
     setDateOfUse(date!);
   }
 
+  const clearAll = () => {
+    setAmount('')
+    setCategoryId('1')
+    setTypeId('2')
+    setMemo('')
+  }
+
   const clickSubmit = useCallback(
     async () => {
+      if (amount == '') {
+        const answer = window.confirm('金額が入力されていません')
+        return
+      }
+
       const req: IAccountRequestModel = {
         categoryId: Number(categoryId),
         typeId: Number(typeId),
@@ -58,10 +70,8 @@ export default function HomeView() {
         memo: memo,
         dateOfUse: dateOfUse,
       }
-      console.log(req)
       const newAccount = await AccountRepository.postAccount(req)
       setAccounts([...accounts, newAccount])
-      console.log(newAccount)
 
       // const newAccountObject: IAccountResponseModel = {
       //   categoryId: Number(categoryId),
@@ -74,7 +84,8 @@ export default function HomeView() {
       const res2 = await AccountRepository.getAccounts()
       setAccounts(res2)
 
-      console.log(accounts)
+      clearAll()
+
     }, [categoryId, typeId, amount, memo, dateOfUse])
 
   function getCategoryName(id: number) {
@@ -134,6 +145,7 @@ export default function HomeView() {
           <select
             name="username"
             onChange={changeCategory}
+            value={categoryId}
             className="block w-full sm:w-2/3 bg-gray-200 py-2 px-3 text-gray-700 border border-gray-200 rounded focus:outline-none focus:bg-white"
           >
             {categories.map((c) => (
