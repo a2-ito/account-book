@@ -279,6 +279,7 @@ export default function HomeView() {
                   <th>支出/収入</th>
                   <th>分類</th>
                   <th>費用</th>
+                  <th>メモ</th>
                 </tr>
                 {accounts.map((item, index) => (
                   <tr key={index}>
@@ -293,6 +294,9 @@ export default function HomeView() {
                     </td>
                     <td className="px-4 py-2 border">
                       {item.amount.toLocaleString()}
+                    </td>
+                    <td className="px-4 py-2 border">
+                      {item.memo}
                     </td>
                   </tr>
                 ))}

@@ -1,5 +1,8 @@
 
-all: run
+all: run-db run
+
+run:
+	yarn dev
 
 build:
 	npx prisma migrate dev --name init

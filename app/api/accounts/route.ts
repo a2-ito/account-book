@@ -116,13 +116,17 @@ export const GET = async (req: Request) => {
     return NextResponse.json({ messeage: "Error" },{ status: 500 })
   }
 
+  const nowDate = new Date();
   try {
     const accounts = await prisma.account.findMany({
       where: {
         projectId: userProject.projectId,
+        dateOfUse: {
+          gte: new Date(nowDate.getFullYear(), nowDate.getMonth(), 1)
+        },
       },
       orderBy: {
-        createdAt: 'desc',
+        dateOfUse: 'desc',
       }
     });
     return NextResponse.json({accounts},{ status: 200 })
