@@ -137,3 +137,4 @@ export const GET = async (req: Request) => {
       await prisma.$disconnect();
   }
 };
+

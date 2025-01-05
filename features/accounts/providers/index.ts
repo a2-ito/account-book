@@ -52,4 +52,13 @@ export namespace AccountRepository {
     const json = await res.json()
     return json.account
   }
+
+  export async function deleteAccount(id: number) {
+    const res = await fetch(`/api/accounts/${id}`, {
+      method: 'DELETE',
+    })
+
+    const json = await res.json()
+    return
+  }
 }

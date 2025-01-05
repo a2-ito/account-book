@@ -88,6 +88,18 @@ export default function HomeView() {
 
     }, [categoryId, typeId, amount, memo, dateOfUse])
 
+  const clickDelete = useCallback(
+    async (id: number, categoryName: string, amount: number) => {
+      console.log('clickDelete: ', id, categoryName, amount)
+      const answer = window.confirm('削除してよろしいですか？ 分類:' + categoryName + ', 金額:' + amount + '円')
+      if (!answer) {
+        return
+      }
+
+      await AccountRepository.deleteAccount(id)
+      setAccounts(accounts.filter((v) => v.id !== id))
+    }, [])
+
   function getCategoryName(id: number) {
     const c = categories.find((v) => v.id === id)
     return c?.name || '未分類'
@@ -98,7 +110,6 @@ export default function HomeView() {
     const preMonth = new Date(dt.getFullYear(), dt.getMonth() - 1, 1)
 
     const p = accounts.filter((v) => dayjs(v.dateOfUse).format("YYYY/MM") == dayjs(preMonth).format("YYYY/MM")).reduce((acc, cur) => acc + cur.amount, 0)
-    console.log(preMonth, p)
     return accounts.filter((v) => dayjs(v.dateOfUse).format("YYYY/MM") == dayjs(preMonth).format("YYYY/MM")).reduce((acc, cur) => acc + cur.amount, 0)
   }
 
@@ -297,6 +308,15 @@ export default function HomeView() {
                     </td>
                     <td className="px-4 py-2 border">
                       {item.memo}
+                    </td>
+                    <td className="px-4 py-2 border">
+                      <button
+                        type="button"
+                        className="group relative h-8 overflow-hidden rounded-md bg-blue-500 px-6 text-neutral-50 transition"
+                        onClick={ ()=>{clickDelete(item.id, getCategoryName(item.categoryId), item.amount)} }
+                      >
+                        削除
+                      </button>
                     </td>
                   </tr>
                 ))}
