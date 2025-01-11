@@ -98,7 +98,7 @@ export default function HomeView() {
 
       await AccountRepository.deleteAccount(id)
       setAccounts(accounts.filter((v) => v.id !== id))
-    }, [])
+    }, [accounts])
 
   function getCategoryName(id: number) {
     const c = categories.find((v) => v.id === id)
