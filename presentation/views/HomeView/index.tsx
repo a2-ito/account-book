@@ -74,6 +74,7 @@ export default function HomeView() {
       setAccounts([...accounts, newAccount])
 
       // const newAccountObject: IAccountResponseModel = {
+      //   id: newAccount.id,
       //   categoryId: Number(categoryId),
       //   typeId: Number(typeId),
       //   amount: Number(amount),
@@ -81,12 +82,12 @@ export default function HomeView() {
       //   dateOfUse: dateOfUse,
       // }
       // setAccounts([...accounts, newAccountObject])
-      const res2 = await AccountRepository.getAccounts()
-      setAccounts(res2)
+      // const res2 = await AccountRepository.getAccounts()
+      // setAccounts(res2)
 
       clearAll()
 
-    }, [categoryId, typeId, amount, memo, dateOfUse])
+    }, [categoryId, typeId, amount, memo, dateOfUse, accounts])
 
   const clickDelete = useCallback(
     async (id: number, categoryName: string, amount: number) => {

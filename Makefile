@@ -1,10 +1,13 @@
 
-all: run-db run
+all: build run-db run
 
 run:
 	yarn dev
 
 build:
+	yarn build
+
+build-db:
 	npx prisma migrate dev --name init
 	npx prisma db seed
 
@@ -18,7 +21,9 @@ clean-sqlite:
 	rm -rf prisma/migrations
 	rm -f prisma/dev.db
 
-clean:
+down:
 	docker compose down
+
+clean: down
 	docker volume rm account-book_db-vol
 	rm -rf prisma/migrations
